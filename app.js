@@ -9,11 +9,10 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser()); // Make sure to add this line
 const corsOptions = {
-  origin: ["https://coderraushan.github.io"], 
-  credentials: true, 
-  credentials: true, // Allow cookies if needed
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  origin: ["https://coderraushan.github.io","https://rausexpensemanagement.netlify.app"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
 const port = process.env.PORT || 9090;
@@ -33,7 +32,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/Expense",ExpenseRouter);  
-
+app.post("/Expense/AddExpense", (req, res) => {
+  console.log("Request received:", req.body);
+  res.send("Expense added!");
+});
 app.listen(port, () => {
   console.log(`server is running at port:localhost:${port}`);
 });
