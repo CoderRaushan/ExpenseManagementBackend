@@ -9,7 +9,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser()); // Make sure to add this line
 const corsOptions = {
-  origin: ["https://coderraushan.github.io"], 
+  origin: ["https://coderraushan.github.io/ExpenseManagementFrontend"], 
   credentials: true, 
 };
 app.use(cors(corsOptions));
