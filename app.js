@@ -11,6 +11,9 @@ app.use(cookieParser()); // Make sure to add this line
 const corsOptions = {
   origin: ["https://coderraushan.github.io"], 
   credentials: true, 
+  credentials: true, // Allow cookies if needed
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
 };
 app.use(cors(corsOptions));
 const port = process.env.PORT || 9090;
