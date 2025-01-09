@@ -1,19 +1,18 @@
 import { json } from "express";
 import Expense from "../models/ExpenseModel.js";
-import redis from "redis"
-// console.log(process.env.REDIS_URI);
+import redis from "redis";
+import dotenv from "dotenv"
+dotenv.config();
 const redisClient = redis.createClient({
-  url: "redis://redis-16422.c10.us-east-1-4.ec2.redns.redis-cloud.com:16422",
-  password:"WzGQfUjCYvGIu0v07RNBrSmDNa8VGmXf",
+  url:process.env.Redis_uri,
+  password:process.env.Redis_password,
 });
  redisClient
   .connect()
   .then(async() => {
-    console.log("Redis connected successfully!");
     const ExpenseData = await Expense.find({});
     await redisClient.set('expensedata', JSON.stringify(ExpenseData)); 
-    // const data=await redisClient.get("expensedata");
-    // console.log(JSON.parse(data));
+    console.log("Redis connected successfully!");
   })
   .catch((err) => {
     console.error("Error connecting to Redis:", err);
