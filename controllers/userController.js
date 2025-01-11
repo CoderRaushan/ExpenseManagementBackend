@@ -7,6 +7,7 @@ const redisClient = redis.createClient({
   url:process.env.Redis_uri,
   password:process.env.Redis_password,
 });
+
  redisClient
   .connect()
   .then(async() => {
