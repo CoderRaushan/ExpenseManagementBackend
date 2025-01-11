@@ -1,24 +1,9 @@
-import { json } from "express";
+
 import Expense from "../models/ExpenseModel.js";
 import redis from "redis";
 import dotenv from "dotenv"
 dotenv.config();
-const redisClient = redis.createClient({
-  url:process.env.Redis_uri,
-  password:process.env.Redis_password,
-});
 
- redisClient
-  .connect()
-  .then(async() => {
-    const ExpenseData = await Expense.find({});
-    await redisClient.set('expensedata', JSON.stringify(ExpenseData)); 
-    console.log("Redis connected successfully!");
-  })
-  .catch((err) => {
-    console.error("Error connecting to Redis:", err);
-  });
-export default redisClient;
 export const AddExpense = async (req, res) => {
   const { item, cost, category, date } = req.body;
   try {
@@ -65,15 +50,8 @@ export const EditExpense = async (req, res) => {
 
 export const GetExpense = async (req, res) => {
   try {
-    const cachedData = await redisClient.get("expensedata");
-    if (cachedData) {
-      console.log("redis se data mil gya");
-      return res.status(200).json(JSON.parse(cachedData));
-    }
     const ExpenseData = await Expense.find({});
     if (ExpenseData) {
-      await redisClient.set('expensedata', JSON.stringify(ExpenseData)); 
-      console.log("redis se data nahi mila")
       return res.status(200).json(ExpenseData);
     }
   } catch (err) {

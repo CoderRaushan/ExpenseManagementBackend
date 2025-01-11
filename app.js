@@ -7,8 +7,7 @@ import ExpenseRouter from "./routes/userRoute.js";
 const app = express();
 dotenv.config();
 app.use(express.json());
-app.use(cookieParser()); // Make sure to add this line
-
+app.use(cookieParser()); 
 const corsOptions = {
   origin: ["https://rausexpensemanagement.netlify.app","http://127.0.0.1:5500"],
   credentials: true,
